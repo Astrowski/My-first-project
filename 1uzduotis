@@ -19,46 +19,68 @@ int main()
 {
     studentas A[10];
     int n , m, sum = 0, temp, z;
+    char t;
     cout << "Ivesk studentu skaiciu: "; cin >> z;
     for (int i = 0; i < z; i++)
     {
         n = m = 0;
         cout << "\nIvesk " << i + 1 << " studento varda: "; cin >> A[i].vardas;
+
         cout << "\nIvesk " << i + 1 << " studento pavarde: "; cin >> A[i].pavarde;
-        cout << "\nIvesk egzamino pazymi: "; cin >> A[i].egzas;
+        cout << "\nIvesk egzamino pazymi: ";
         
-        while (A[i].egzas < 0 || A[i].egzas > 10)
+        
+        while (!(cin >> A[i].egzas))
         {
-            cout << "\nIvesk skaiciu is desimtbales sistemos: "; cin >> A[i].egzas;
+            cout << "Prasiau ivesti pazymi!" << endl;
+            exit(0);
         }
-        //cout << "\nKiek turi pazymiu?: "; cin >> n;
-        //   for (int k = 0; k < n; k++)
-        //    {
-        //        cout << "\nIvesk " << k + 1 << "-aji pazymi ";
-        //        cin >> A[i].paz[k];
-        //        sum += A[i].paz[k];
-        //    }
-        for (int k = 0; k < 10; k++)
+        while (A[i].egzas < 1 || A[i].egzas > 10)
         {
-            
+            cout << "\nIvesk skaiciu is desimtbales sistemos!: "; cin >> A[i].egzas;
+        }
+        cout << "\nParasyk S, jei nori pats suvesti kiek nd pazymiu turejo studentas, jei nenori - N: ";
+        cin >> t;
+        if (t == 'S')
+        {
+            cout << "\nKiek turi pazymiu?: "; cin >> n;
+            for (int k = 0; k < n; k++)
+            {
+                cout << "\nIvesk " << k + 1 << "-aji pazymi ";
+                cin >> A[i].paz[k];
+                while (A[i].paz[k] < 1 || A[i].paz[k] > 10)
+                {
+                    cout << "\nIvesk skaiciu is desimtbales sistemos!: "; cin >> A[i].paz[k];
+                }
+                sum += A[i].paz[k];
+            }
+        }
+        else if (t == 'N')
+        {
+            for (int k = 0; k < 10; k++)
+            {
                 cout << "\nIvesk nd pazymi, jeigu pazymiu nera, ivesk -1: ";
                 cin >> A[i].paz[k];
                 if (A[i].paz[k] == -1)
                 {
-                    break;              
+                    break;
+                }
+                while (A[i].paz[k] < 1 || A[i].paz[k] > 10)
+                {
+                    cout << "\nIvesk skaiciu is desimtbales sistemos!: "; cin >> A[i].paz[k];
                 }
                 sum += A[i].paz[k];
                 n++;
-                
-            
+            }
         }
+
         m = n;
         
         for (int j = m; j > 0; j--)
         {
             A[i].paz[j] = A[i].paz[j - 1];
         }
-        A[i].paz[0] = A[i].egzas; //i nuline masyvo vieta idedame egzamino pazymi, to reikes skaiciuojant mediana
+        A[i].paz[0] = A[i].egzas;
         m++;
         for (int k = 0; k < m; k++)
         {
@@ -68,7 +90,7 @@ int main()
                 {
                     temp = A[i].paz[j];
                     A[i].paz[j] = A[i].paz[j + 1];
-                    A[i].paz[j + 1] = temp;       //masyvo surusiavimas didejancia tvarka
+                    A[i].paz[j + 1] = temp;
                 }
             }
         }
@@ -80,25 +102,25 @@ int main()
         {
             A[i].mediana = A[i].paz[m / 2];
         }
-        if (n == 0)  //patikrinam, ar nd skaicius lygus 0
+        if (n == 0)
         {
-            A[i].pazymys = A[i].egzas;  //jei nd skaicius lygus nuliui, tai egzamino rezultatas lygus pazymiui
+            A[i].pazymys = A[i].egzas;
         }
         else
         {
-            A[i].pazymys = double(sum) / double(n) * 0.40 + double(A[i].egzas) * 0.60; //jei nd skaicius nelygus 0, skaiciuojam pazymi pagal formule
+            A[i].pazymys = double(sum) / double(n) * 0.40 + double(A[i].egzas) * 0.60;
         }
     }
 
-        cout << "Vardas" << setw(7) << "Pavarde" << setw(16) << "Galutinis (Vid.)" << " / " << setw(16) << "Galutinis (Med.)" << endl;
+        cout << "\n" << "Vardas" << setw(10) << "Pavarde" << setw(16) << "Galutinis (Vid.)" << " / " << setw(16) << "Galutinis (Med.)" << endl;
         for (int j = 0; j < 60; j++)
         {
-            cout << "-"; // isvedime esantys bruksneliai
+            cout << "-";
         }
     for (int i = 0; i < z; i++)
     {
-        cout << "\n" << A[i].vardas << setw(7) << A[i].pavarde << setw(16) << fixed << setprecision(2) << A[i].pazymys;
-        cout << setw(16)<< fixed << setprecision(2) << A[i].mediana << endl; //su setprecision padarom taip, kad programa isvestu 2 skaicius po kablelio
+        cout << "\n" << left << A[i].vardas << setw(10) << A[i].pavarde << setw(16) << fixed << setprecision(2) << A[i].pazymys;
+        cout << setw(16)<< fixed << setprecision(2) << A[i].mediana << endl;
         
     }
     return 0;
