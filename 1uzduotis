@@ -18,24 +18,42 @@ struct studentas
 int main()
 {
     studentas A[10];
-    int n, m, sum = 0, temp, z;
+    int n , m, sum = 0, temp, z;
     cout << "Ivesk studentu skaiciu: "; cin >> z;
     for (int i = 0; i < z; i++)
     {
+        n = m = 0;
         cout << "\nIvesk " << i + 1 << " studento varda: "; cin >> A[i].vardas;
         cout << "\nIvesk " << i + 1 << " studento pavarde: "; cin >> A[i].pavarde;
         cout << "\nIvesk egzamino pazymi: "; cin >> A[i].egzas;
-        cout << "\nKiek turi pazymiu?: "; cin >> n;
-
-
-        for (int k = 0; k < n; k++)
+        
+        while (A[i].egzas < 0 || A[i].egzas > 10)
         {
-            cout << "\nIvesk " << k + 1 << "-aji pazymi ";
-            cin >> A[i].paz[k];
-            sum += A[i].paz[k];
+            cout << "\nIvesk skaiciu is desimtbales sistemos: "; cin >> A[i].egzas;
         }
-
+        //cout << "\nKiek turi pazymiu?: "; cin >> n;
+        //   for (int k = 0; k < n; k++)
+        //    {
+        //        cout << "\nIvesk " << k + 1 << "-aji pazymi ";
+        //        cin >> A[i].paz[k];
+        //        sum += A[i].paz[k];
+        //    }
+        for (int k = 0; k < 10; k++)
+        {
+            
+                cout << "\nIvesk nd pazymi, jeigu pazymiu nera, ivesk -1: ";
+                cin >> A[i].paz[k];
+                if (A[i].paz[k] == -1)
+                {
+                    break;              
+                }
+                sum += A[i].paz[k];
+                n++;
+                
+            
+        }
         m = n;
+        
         for (int j = m; j > 0; j--)
         {
             A[i].paz[j] = A[i].paz[j - 1];
@@ -72,16 +90,17 @@ int main()
         }
     }
 
-        cout << "Vardas\t" << "Pavarde\t" << "Galutinis (Vid.)" << " / " << "Galutinis (Med.)" << endl;
+        cout << "Vardas" << setw(7) << "Pavarde" << setw(16) << "Galutinis (Vid.)" << " / " << setw(16) << "Galutinis (Med.)" << endl;
         for (int j = 0; j < 60; j++)
         {
             cout << "-"; // isvedime esantys bruksneliai
         }
     for (int i = 0; i < z; i++)
     {
-        cout << "\n" << A[i].vardas << "\t" << A[i].pavarde << "\t" << fixed << setprecision(2) << A[i].pazymys << "\t";
-        cout << fixed << setprecision(2) << A[i].mediana << endl; //su setprecision padarom taip, kad programa isvestu 2 skaicius po kablelio
+        cout << "\n" << A[i].vardas << setw(7) << A[i].pavarde << setw(16) << fixed << setprecision(2) << A[i].pazymys;
+        cout << setw(16)<< fixed << setprecision(2) << A[i].mediana << endl; //su setprecision padarom taip, kad programa isvestu 2 skaicius po kablelio
         
     }
     return 0;
 }
+
