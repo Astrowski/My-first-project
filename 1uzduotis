@@ -45,12 +45,12 @@ int main()
         }
         cout << "\nParasyk S, jei nori pats suvesti kiek nd pazymiu turejo studentas, jei nenori - N: ";
         cin >> t;
-        while (t != 'S' && t != 'N')
+        while (t != 'S' && t != 'N' && t != 's' && t != 'n')
         {
             cout << "\nIvesk S arba N!: "; cin >> t;
         }
             
-            if (t == 'S')
+            if (t == 'S' || t == 's')
             {
                 cout << "\nKiek turi pazymiu?: "; cin >> n;
                 while (cin.fail())
@@ -74,7 +74,7 @@ int main()
                     sum += A[i].paz[k];
                 }
             }
-            else if (t == 'N')
+            else if (t == 'N' || t == 'n')
             {
                 for (int k = 0; k < 10; k++)
                 {
@@ -136,15 +136,15 @@ int main()
             A[i].pazymys = double(sum) / double(n) * 0.40 + double(A[i].egzas) * 0.60;
         }
         cout << "\nParasyk V, jei nori suzinoti vidurki, M, jei nori suzinoti mediana: "; cin >> g;
-        while (g != 'V' && g != 'M')
+        while (g != 'V' && g != 'M' && g != 'v' && g != 'm')
         {
             cout << "\nIvesk V arba N!: "; cin >> g;
         }
-        if (g == 'V')
+        if (g == 'V' || g == 'v')
         {
             A[i].mediana = 0;
         }
-        else if (g == 'M')
+        else if (g == 'M' || g == 'm')
         {
             A[i].pazymys = 0;
         }
@@ -178,4 +178,5 @@ int main()
     }
     return 0;
 }
+
 
