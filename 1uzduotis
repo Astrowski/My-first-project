@@ -19,8 +19,15 @@ int main()
 {
     studentas A[10];
     int n , m, sum = 0, temp, z;
-    char t;
+    char t, g;
     cout << "Ivesk studentu skaiciu: "; cin >> z;
+    while (cin.fail())
+    {
+        cout << "\nIvesk skaiciu!: ";
+        cin.clear();
+        cin.ignore(256, '\n');
+        cin >> z;
+    }
     for (int i = 0; i < z; i++)
     {
         n = m = 0;
@@ -28,51 +35,69 @@ int main()
 
         cout << "\nIvesk " << i + 1 << " studento pavarde: "; cin >> A[i].pavarde;
         cout << "\nIvesk egzamino pazymi: ";
-        
-        
-        while (!(cin >> A[i].egzas))
+        cin >> A[i].egzas;
+        while (cin.fail() ||  A[i].egzas < 1 || A[i].egzas > 10)
         {
-            cout << "Prasiau ivesti pazymi!" << endl;
-            exit(0);
-        }
-        while (A[i].egzas < 1 || A[i].egzas > 10)
-        {
-            cout << "\nIvesk skaiciu is desimtbales sistemos!: "; cin >> A[i].egzas;
+            cout << "\nIvesk skaiciu is desimtbales sistemos!: ";
+            cin.clear();
+            cin.ignore(256, '\n');
+            cin >> A[i].egzas;
         }
         cout << "\nParasyk S, jei nori pats suvesti kiek nd pazymiu turejo studentas, jei nenori - N: ";
         cin >> t;
-        if (t == 'S')
+        while (t != 'S' && t != 'N')
         {
-            cout << "\nKiek turi pazymiu?: "; cin >> n;
-            for (int k = 0; k < n; k++)
-            {
-                cout << "\nIvesk " << k + 1 << "-aji pazymi ";
-                cin >> A[i].paz[k];
-                while (A[i].paz[k] < 1 || A[i].paz[k] > 10)
-                {
-                    cout << "\nIvesk skaiciu is desimtbales sistemos!: "; cin >> A[i].paz[k];
-                }
-                sum += A[i].paz[k];
-            }
+            cout << "\nIvesk S arba N!: "; cin >> t;
         }
-        else if (t == 'N')
-        {
-            for (int k = 0; k < 10; k++)
+            
+            if (t == 'S')
             {
-                cout << "\nIvesk nd pazymi, jeigu pazymiu nera, ivesk -1: ";
-                cin >> A[i].paz[k];
-                if (A[i].paz[k] == -1)
+                cout << "\nKiek turi pazymiu?: "; cin >> n;
+                while (cin.fail())
                 {
-                    break;
+                    cout << "\nIvesk skaiciu!: ";
+                    cin.clear();
+                    cin.ignore(256, '\n');
+                    cin >> n;
                 }
-                while (A[i].paz[k] < 1 || A[i].paz[k] > 10)
+                for (int k = 0; k < n; k++)
                 {
-                    cout << "\nIvesk skaiciu is desimtbales sistemos!: "; cin >> A[i].paz[k];
+                    cout << "\nIvesk " << k + 1 << "-aji pazymi ";
+                    cin >> A[i].paz[k];
+                    while (cin.fail() || A[i].paz[k] < 1 || A[i].paz[k] > 10)
+                    {
+                        cout << "\nIvesk skaiciu is desimtbales sistemos!: ";
+                        cin.clear();
+                        cin.ignore(256, '\n');
+                        cin >> A[i].paz[k];
+                    }
+                    sum += A[i].paz[k];
                 }
-                sum += A[i].paz[k];
-                n++;
             }
-        }
+            else if (t == 'N')
+            {
+                for (int k = 0; k < 10; k++)
+                {
+
+                    cout << "\nIvesk nd pazymi, jeigu pazymiu nera, ivesk -1: ";
+                    cin >> A[i].paz[k];
+                    if (A[i].paz[k] == -1)
+                    {
+                        break;
+                    }
+                        while (cin.fail() || A[i].paz[k] < 1 || A[i].paz[k] > 10)
+                        {
+                            cout << "\nIvesk skaiciu is desimtbales sistemos!: ";
+                            cin.clear();
+                            cin.ignore(256, '\n');
+                            cin >> A[i].paz[k];
+                        }
+
+                        sum += A[i].paz[k];
+                        n++;
+                }
+            }
+        
 
         m = n;
         
@@ -110,18 +135,46 @@ int main()
         {
             A[i].pazymys = double(sum) / double(n) * 0.40 + double(A[i].egzas) * 0.60;
         }
+        cout << "\nParasyk V, jei nori suzinoti vidurki, M, jei nori suzinoti mediana: "; cin >> g;
+        while (g != 'V' && g != 'M')
+        {
+            cout << "\nIvesk V arba N!: "; cin >> g;
+        }
+        if (g == 'V')
+        {
+            A[i].mediana = 0;
+        }
+        else if (g == 'M')
+        {
+            A[i].pazymys = 0;
+        }
     }
 
-        cout << "\n" << "Vardas" << setw(10) << "Pavarde" << setw(16) << "Galutinis (Vid.)" << " / " << setw(16) << "Galutinis (Med.)" << endl;
+        cout << "\n" << left << setw(12) << "Vardas" << left << setw(12) << "Pavarde" << setw(13) << "Galutinis (Vid.)" << " / " << setw(16) << "Galutinis (Med.)" << endl;
         for (int j = 0; j < 60; j++)
         {
             cout << "-";
         }
     for (int i = 0; i < z; i++)
     {
-        cout << "\n" << left << A[i].vardas << setw(10) << A[i].pavarde << setw(16) << fixed << setprecision(2) << A[i].pazymys;
-        cout << setw(16)<< fixed << setprecision(2) << A[i].mediana << endl;
-        
+       
+        cout << "\n" << left << setw(12) << A[i].vardas << left << setw(12) << A[i].pavarde;
+        if (A[i].pazymys == 0)
+        {
+            cout << setw(19) << fixed << setprecision(2) << " ";
+        }
+        else
+        {
+            cout << setw(19) << fixed << setprecision(2) << A[i].pazymys;
+        }
+        if (A[i].mediana == 0)
+        {
+            cout << left << setw(16) << fixed << setprecision(2) << " ";
+        }
+        else
+        {
+            cout << left << setw(16) << fixed << setprecision(2) << A[i].mediana << endl;
+        }
     }
     return 0;
 }
