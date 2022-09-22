@@ -15,7 +15,6 @@ struct studentas
     int* paz; // namu darbu masyvas kai nezinom n
     int egzas; // egzaminas
     int n = 0; // nd skaicius
-    int m;
 };
 
 void duomenu_Ivedimas(studentas A[], int z);
@@ -37,8 +36,7 @@ int main()
     duomenu_Isvedimas(A, z);
     for (int i = 0; i < z; i++) 
     { 
-        
-        
+               
             delete[] A[i].paz;
         
     }
@@ -101,16 +99,20 @@ void duomenu_Ivedimas(studentas A[], int z)
 
     }
 }
-void rusiavimas(studentas A) { // ciklo cikle pagalba atliekama rusiavimo funkcija, kurios metu mazesne,
-                                //is dvieju lyginamu reiksmiu, yra perkeliama i kairesne pozicija.
-    for (int i = 0; i < A.n - 1; i++) {
-        for (int j = i; j < A.n; j++) {
+void rusiavimas(studentas A) // rusiavimo algoritmas
+{ 
+    for (int i = 0; i < A.n - 1; i++)
+    {
+        for (int j = i; j < A.n; j++)
+        {
             if (A.paz[i] > A.paz[j])
+            {
                 std::swap(A.paz[i], A.paz[j]);
+            }
         }
     }
 }
-int sum(int masyvas[], int n)
+int sum(int masyvas[], int n) // nd pazymiu suma
 {
     int pazymys = 0;
     for (int i = 0; i < n; i++)
@@ -119,17 +121,17 @@ int sum(int masyvas[], int n)
     }
     return pazymys;
 }
-double vidurkis(double pazymys, int m)
+double vidurkis(double pazymys, int m) // vidurkio skaiciavimas
 {
         double vid;
-        vid = pazymys / m;
+        vidurkis = pazymys / m;
         if (m == 0)
         {
-            vid = 0;
+            vidurkis = 0;
         }
-        return vid;
+        return vidurkis;
 }
-double mediana(studentas A, int m)
+double mediana(studentas A, int m) //medianos skaiciavimas
 {
         double mediana;
         if (A.n == 0)
