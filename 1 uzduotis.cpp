@@ -93,7 +93,7 @@ void duomenu_Ivedimas(studentas A[], int z)
         }
         if (A[i].n == 0)
         {
-            cout << "Mokinys pazymiu neturi" << std::endl;
+            cout << "Studentas pazymiu neturi" << std::endl;
         }
 
 
