@@ -23,7 +23,7 @@ void duomenu_Isvedimas(studentas A[], int z);
 int main()
 {
     studentas A[10];
-    int z; // mokiniu skaicius
+    int z; // studentu skaicius
     cout << "Ivesk studentu skaiciu: "; cin >> z;
     while (cin.fail())
     {
@@ -124,12 +124,12 @@ int sum(int masyvas[], int n) // nd pazymiu suma
 double vidurkis(double pazymys, int m) // vidurkio skaiciavimas
 {
         double vid;
-        vidurkis = pazymys / m;
+        vid = pazymys / m;
         if (m == 0)
         {
-            vidurkis = 0;
+            vid = 0;
         }
-        return vidurkis;
+        return vid;
 }
 double mediana(studentas A, int m) //medianos skaiciavimas
 {
