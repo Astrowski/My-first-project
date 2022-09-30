@@ -25,7 +25,7 @@ void skaitykDuomenis(std::vector<duomenys>& A, int* n)
             {
                 A.resize(A.size() + 1);
                 skaityk >> A.at(sk).vardas;
-                if (skaityk.eof()) // tikrinam ar nuskaitymas pasieke pabaiga
+                if (skaityk.eof())
                 {
                     A.pop_back();
                     break;
